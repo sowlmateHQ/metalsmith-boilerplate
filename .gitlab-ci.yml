@@ -1,5 +1,4 @@
-services:
-  - node:7.8
+image: node:7.8
 
 cache:
   key: $CI_BUILD_REF_NAME
