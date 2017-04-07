@@ -9,6 +9,7 @@ cache:
 build:
   stage: build
   script:
+    - ln -s /usr/bin/nodejs /usr/bin/node
     - npm install gulp -g
     - npm install
     - gulp build
