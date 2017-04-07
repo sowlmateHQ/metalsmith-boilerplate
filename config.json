@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "site": {
+      "name": "Ultra Low Hygiene Technology"
+    }
+  },
+  "source": "./src",
+  "destination": "./dist",
+  "assets": {
+    "globs": {
+      "css": [
+        "./src/_scss/**/*.scss",
+        "./src/css/**/*.css"
+      ],
+      "vendor": [
+        "./src/vendor/**/*.js"
+      ],
+      "scripts": [
+        "./src/js/*.js"
+      ]
+    },
+    "bin": {
+      "css": "./src/bin",
+      "js": "./src/bin"
+    },
+    "minified": {
+      "css": "css.min.css",
+      "js": "js.min.js",
+      "vendor": "vendor.min.js",
+      "bundle": "bundle.min.js"
+    }
+  }
+}

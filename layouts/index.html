@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{rootPath}}/bin/css.min.css">
+</head>
+
+<body>
+
+<h1>Index Template</h1>
+
+{{> navigation this }}
+
+{{{ contents }}}
+
+<script src="{{rootPath}}/bin/vendor.min.js"></script>
+<!-- Bundling not implemented right now -->
+<!-- <script src="{{rootPath}}/bin/bundle.min.js"></script> -->
+
+</body>
+</html>
