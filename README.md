@@ -36,3 +36,8 @@ $ gulp
 [BS] Serving files from: ./dist
 [BS] Reloading Browsers...
 ```
+
+## Todo
+
+- tryout yarn with lockfile
+- try to get rid of these warnings
