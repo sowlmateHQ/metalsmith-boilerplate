@@ -1,4 +1,4 @@
-image: node:7.8
+image: cusspvz/node:7.8.0-development
 
 variables:
   NODE_ENV: production
@@ -13,7 +13,7 @@ cache:
 build:
   stage: build
   script:
-    - ln -s /usr/local/bin/node /usr/bin/node
+    # - ln -s /usr/local/bin/node /usr/bin/node
     - npm config set cache npm_cache/
     - npm install gulp -g --loglevel warn
     - npm install --unsafe-perm --loglevel warn # unsafe-perm because some scripts may not run with root privileges
