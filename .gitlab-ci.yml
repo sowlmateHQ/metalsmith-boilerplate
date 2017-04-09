@@ -1,5 +1,8 @@
 image: node:7.8
 
+variables:
+  NODE_ENV: production
+
 cache:
   key: $CI_BUILD_REF_NAME
   untracked: true
@@ -10,10 +13,10 @@ cache:
 build:
   stage: build
   script:
-    - ln -s /usr/bin/nodejs /usr/bin/node
+    - ln -s /usr/local/bin/node /usr/bin/node
     - npm config set cache npm_cache/
-    - npm install gulp -g
-    - npm install
+    - npm install gulp -g --loglevel warn
+    - npm install --unsafe-perm --loglevel warn # unsafe-perm because some scripts may not run with root privileges
     - gulp build
   artifacts:
     paths:
