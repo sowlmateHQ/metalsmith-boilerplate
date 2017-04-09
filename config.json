@@ -1,9 +1,5 @@
 {
-  "metadata": {
-    "site": {
-      "name": "Ultra Low Hygiene Technology"
-    }
-  },
+  "metadata": {},
   "source": "./src",
   "destination": "./dist",
   "assets": {
