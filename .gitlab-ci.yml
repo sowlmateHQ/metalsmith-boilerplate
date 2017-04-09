@@ -18,6 +18,7 @@ build:
   script:
     - npm install gulp -g --loglevel warn
     - npm install --loglevel warn
+    - gulp build-deps
     - gulp build
   artifacts:
     name: "website-${CI_COMMIT_REF_NAME}"
