@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var minifycss = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
@@ -51,7 +51,7 @@ gulp.task('build-dev', ['css', 'js'], function () {
 gulp.task('css', function () {
     return gulp.src(configuration.assets.globs.css)
         .pipe(sass().on('error', sass.logError))
-        .pipe(minifycss())
+        .pipe(cleanCss())
         .pipe(concat(configuration.assets.minified.css))
         .pipe(gulp.dest(configuration.assets.bin.css));
 });
