@@ -10,14 +10,16 @@ cache:
     - node_modules/
     - npm_cache/
 
+before_script:
+  - npm config set cache npm_cache/
+
 build:
   stage: build
   script:
-    # - ln -s /usr/local/bin/node /usr/bin/node
-    - npm config set cache npm_cache/
     - npm install gulp -g --loglevel warn
-    - npm install --unsafe-perm --loglevel warn # unsafe-perm because some scripts may not run with root privileges
+    - npm install --loglevel warn
     - gulp build
   artifacts:
+    name: "website-${CI_COMMIT_REF_NAME}"
     paths:
       - dist/
