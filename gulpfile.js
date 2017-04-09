@@ -88,7 +88,7 @@ gulp.task('browser-sync', function () {
     gulp.watch('./layouts/**/*.html', ['build-dev']);
     gulp.watch('./partials/**/*.html', ['build-dev']);
     gulp.watch(configuration.source + '/**/*.html', ['build-dev']);
-    gulp.watch(configuration.source + '/_scss/**/*.html', ['build-dev']);
-    gulp.watch(configuration.source + '/css/**/*.html', ['build-dev']);
+    gulp.watch(configuration.source + '/_scss/**/*.scss', ['build-dev']);
+    gulp.watch(configuration.source + '/css/**/*.css', ['build-dev']);
     gulp.watch(configuration.source + '/js/**/*.html', ['build-dev']);
 });
