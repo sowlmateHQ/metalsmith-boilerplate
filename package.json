@@ -27,11 +27,14 @@
   "dependencies": {
     "browser-sync": "^2.18.8",
     "browserify": "^14.3.0",
+    "del": "^2.2.2",
     "glob": "^7.1.1",
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.0.4",
     "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-kraken": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.5.1",
@@ -47,5 +50,8 @@
     "through2": "^2.0.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "check-pages": "^0.10.0"
   }
 }

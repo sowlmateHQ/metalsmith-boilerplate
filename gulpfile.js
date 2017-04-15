@@ -13,6 +13,10 @@ var globby = require('globby');
 var through = require('through2');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
+var kraken = require('gulp-kraken');
+var checkPages = require('check-pages');
+var connect = require('gulp-connect');
+var del = require('del');
 
 var metalsmith = require("./metalsmith.js");
 var configuration = require("./config.json");
@@ -42,6 +46,16 @@ gulp.task('build-dev', ['css', 'js'], function () {
         if (err) throw err;
         browserSync.reload();
     });
+});
+
+//
+// Clean build directory
+//
+
+gulp.task('clean', function () {
+    return del([
+        configuration.destination + '/**/*'
+    ]);
 });
 
 //
@@ -75,6 +89,20 @@ gulp.task('build-deps', function () {
 });
 
 //
+// Optimize images
+//
+
+gulp.task('images', function () {
+    gulp.src(configuration.source + '/img/**/*.*')
+        .pipe(kraken({
+            key: gutil.env.KRAKEN_API_KEY,
+            secret: gutil.env.KRAKEN_API_SECRET,
+            lossy: true,
+            concurrency: 2
+        }));
+});
+
+//
 // Browsersync
 //
 
@@ -90,5 +118,43 @@ gulp.task('browser-sync', function () {
     gulp.watch(configuration.source + '/**/*.html', ['build-dev']);
     gulp.watch(configuration.source + '/_scss/**/*.scss', ['build-dev']);
     gulp.watch(configuration.source + '/css/**/*.css', ['build-dev']);
-    gulp.watch(configuration.source + '/js/**/*.html', ['build-dev']);
+    gulp.watch(configuration.source + '/js/**/*.js', ['build-dev']);
+});
+
+//
+// Testing website structure
+//
+
+gulp.task('test-pages', function () {
+    connect.server({
+        root: configuration.destination,
+        port: 8888
+    });
+
+    var paths = globby.sync([configuration.destination + '/**/*.html']);
+
+    var pageUrls = [];
+    paths.forEach(function (path) {
+        pageUrls.push(path.replace('./dist/', 'http://localhost:8888/'));
+    });
+
+    var options = {
+        pageUrls: pageUrls,
+        linksToIgnore: [
+            'http://www.sowlmate.de/'
+        ],
+        checkLinks: true,
+        //checkXhtml: true,
+        terse: true,
+        summary: true
+    };
+
+    var callback = function (err, issueCount) {
+        connect.serverClose();
+        if (issueCount > 0) {
+            throw new Error;
+        }
+    };
+
+    checkPages(console, options, callback);
 });

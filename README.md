@@ -1,30 +1,31 @@
-# metalsmith-gulp-boilerplate
+# Develop
 
-## Usage
+## Development Dependencies
 
-### Setup
-
-```
-$ npm install
-$ gulp build-deps
-```
-
-### Develop
+Brew is used to install npm (nodejs).
 
 ```
-$ gulp
+brew install node
+```
 
-[20:27:43] Using gulpfile ~/Development/Projects/ultra-low/website-v3/gulpfile.js
-[20:27:43] Starting 'css'...
-[20:27:43] Starting 'js'...
-[20:27:43] Finished 'js' after 108 μs
-[20:27:43] Starting 'browser-sync'...
-[20:27:43] Finished 'browser-sync' after 30 ms
-[20:27:43] Finished 'css' after 94 ms
-[20:27:43] Starting 'build-dev'...
-[20:27:43] Finished 'build-dev' after 4.56 ms
-[20:27:43] Starting 'default'...
-[20:27:43] Finished 'default' after 54 μs
+## Start Developing
+
+```
+npm install gulp -g
+npm install
+gulp build-deps
+gulp
+```
+
+Now you should see Browsersync running:
+
+```
+[13:57:07] Using gulpfile ~/Development/Projects/ultra-low/website/gulpfile.js
+[13:57:07] Starting 'css'...
+[13:57:07] Starting 'js'...
+[13:57:07] Finished 'js' after 106 μs
+[13:57:07] Starting 'browser-sync'...
+[13:57:07] Finished 'browser-sync' after 70 ms
 [BS] Access URLs:
  ----------------------------------------
        Local: http://localhost:3000
@@ -34,18 +35,20 @@ $ gulp
  UI External: http://192.168.178.144:3001
  ----------------------------------------
 [BS] Serving files from: ./dist
-[BS] Reloading Browsers...
 ```
 
-## Todo
-
-- tryout yarn with lockfile
-- try to get rid of these warnings
+## Optimize images
 
 ```
-npm WARN deprecated gulp-minify-css@1.2.4: Please use gulp-clean-css
-npm WARN deprecated node-uuid@1.4.8: Use uuid module instead
-npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-npm WARN deprecated minimatch@0.2.14: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-npm WARN deprecated graceful-fs@1.2.3: graceful-fs v3.0.0 and before will fail on node releases >= v7.0. Please update to graceful-fs@^4.0.0 as soon as possible. Use 'npm ls graceful-fs' to find it in the tree.
+gulp --KRAKEN_API_KEY=$(KRAKEN_API_KEY) --KRAKEN_API_SECRET=$(KRAKEN_API_SECRET) images
 ```
+
+## Validate Website
+
+```
+gulp.task("test-pages", function() {
+    ...
+});
+```
+
+With this task you can auto-validate each page built with Metalsmith.
