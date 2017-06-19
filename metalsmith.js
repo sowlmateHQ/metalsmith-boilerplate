@@ -2,6 +2,7 @@
 
 var Metalsmith = require('metalsmith');
 var env = require('metalsmith-env');
+var assets = require('metalsmith-assets');
 var rootPath = require('metalsmith-rootpath');
 var permalinks = require('metalsmith-permalinks');
 var layouts = require('metalsmith-layouts');
@@ -13,7 +14,7 @@ var drafts = require('metalsmith-drafts');
 var collections = require('metalsmith-collections');
 var limitCollections = require('metalsmith-collections-limit');
 var robots = require('metalsmith-robots');
-var fingerprint = require('metalsmith-fingerprint');
+var fingerprint = require('metalsmith-fingerprint-ignore');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -44,6 +45,8 @@ module.exports = Metalsmith(__dirname)
     .source(config.build.source)
     .destination(config.build.destination)
     .clean(true)
+    // https://github.com/treygriffith/metalsmith-assets
+    .use(assets(config.build.assets))
     // https://github.com/segmentio/metalsmith-metadata
     .metadata(config.metadata)
     // https://github.com/kalamuna/metalsmith-env

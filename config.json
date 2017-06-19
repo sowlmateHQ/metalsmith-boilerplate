@@ -16,7 +16,14 @@
   "build": {
     "source": "./src",
     "destination": "./dist",
-    "cache_busting": []
+    "cache_busting": [
+      "bin/css.min.css",
+      "bin/vendor.min.js"
+    ],
+    "assets": {
+      "source": "./public",
+      "destination": "./"
+    }
   },
   "test": {
     "linksToIgnore": [
@@ -37,8 +44,8 @@
       ]
     },
     "bin": {
-      "css": "./src/bin",
-      "js": "./src/bin"
+      "css": "./public/bin",
+      "js": "./public/bin"
     },
     "minified": {
       "css": "css.min.css",
