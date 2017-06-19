@@ -8,7 +8,7 @@ variables:
 
 stages:
   - build
-  - package
+  - deploy
 
 build:
   stage: build
@@ -31,29 +31,29 @@ build:
     paths:
       - node_modules/
 
-deploy_to_production:
-  stage: deploy
-  image: python:latest
-  environment:
-    name: production
-    url: $PRODUCTION_URL
-  script:
-    - pip install awscli
-    - aws configure set preview.cloudfront true
-    - aws s3 sync dist/ s3://$STAGING_BUCKET_NAME/ --delete
-    - aws cloudfront create-invalidation --distribution-id $PRODUCTION_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
-  when: manual
-  only:
-    - master
-
-deploy_to_staging:
-  stage: deploy
-  image: python:latest
-  environment:
-    name: staging
-    url: $STAGING_URL
-  script:
-    - pip install awscli
-    - aws s3 sync dist/ s3://$PRODUCTION_BUCKET_NAME/ --delete
-  only:
-    - develop
+#deploy_to_production:
+#  stage: deploy
+#  image: python:latest
+#  environment:
+#    name: production
+#    url: $PRODUCTION_URL
+#  script:
+#    - pip install awscli
+#    - aws configure set preview.cloudfront true
+#    - aws s3 sync dist/ s3://$STAGING_BUCKET_NAME/ --delete
+#    - aws cloudfront create-invalidation --distribution-id $PRODUCTION_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+#  when: manual
+#  only:
+#    - master
+#
+#deploy_to_staging:
+#  stage: deploy
+#  image: python:latest
+#  environment:
+#    name: staging
+#    url: $STAGING_URL
+#  script:
+#    - pip install awscli
+#    - aws s3 sync dist/ s3://$PRODUCTION_BUCKET_NAME/ --delete
+#  only:
+#    - develop
