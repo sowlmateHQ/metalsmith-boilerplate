@@ -6,6 +6,7 @@ var permalinks = require('metalsmith-permalinks');
 var layouts = require('metalsmith-layouts');
 var sitemap = require('metalsmith-sitemap');
 var pageTitles = require('metalsmith-page-titles');
+var htmlMinifier = require("metalsmith-html-minifier");
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -40,4 +41,5 @@ module.exports = Metalsmith(__dirname)
         directory: 'layouts',
         partials: 'partials'
     }))
-    .use(sitemap(config.metadata.site.url));
+    .use(sitemap(config.metadata.site.url))
+    .use(htmlMinifier());

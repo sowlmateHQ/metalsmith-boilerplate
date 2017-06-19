@@ -42,6 +42,7 @@
     "handlebars": "^4.0.6",
     "metalsmith": "^2.3.0",
     "metalsmith-browser-sync": "^1.1.1",
+    "metalsmith-html-minifier": "^2.2.0",
     "metalsmith-layouts": "^1.8.0",
     "metalsmith-page-titles": "^1.0.2",
     "metalsmith-permalinks": "^0.5.0",
