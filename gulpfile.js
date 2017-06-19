@@ -10,10 +10,7 @@ var uglify = require('gulp-uglify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var globby = require('globby');
-var through = require('through2');
-var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
-var kraken = require('gulp-kraken');
 var checkPages = require('check-pages');
 var connect = require('gulp-connect');
 var del = require('del');
@@ -54,7 +51,7 @@ gulp.task('build-dev', ['css', 'js'], function () {
 
 gulp.task('clean', function () {
     return del([
-        configuration.destination + '/**/*'
+        configuration.build.destination + '/**/*'
     ]);
 });
 
@@ -93,13 +90,7 @@ gulp.task('build-deps', function () {
 //
 
 gulp.task('images', function () {
-    gulp.src(configuration.source + '/img/**/*.*')
-        .pipe(kraken({
-            key: gutil.env.KRAKEN_API_KEY,
-            secret: gutil.env.KRAKEN_API_SECRET,
-            lossy: true,
-            concurrency: 2
-        }));
+
 });
 
 //
@@ -109,16 +100,16 @@ gulp.task('images', function () {
 gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
-            baseDir: configuration.destination
+            baseDir: configuration.build.destination
         }
     });
 
     gulp.watch('./layouts/**/*.html', ['build-dev']);
     gulp.watch('./partials/**/*.html', ['build-dev']);
-    gulp.watch(configuration.source + '/**/*.html', ['build-dev']);
-    gulp.watch(configuration.source + '/_scss/**/*.scss', ['build-dev']);
-    gulp.watch(configuration.source + '/css/**/*.css', ['build-dev']);
-    gulp.watch(configuration.source + '/js/**/*.js', ['build-dev']);
+    gulp.watch(configuration.build.source + '/**/*.html', ['build-dev']);
+    gulp.watch(configuration.build.source + '/_scss/**/*.scss', ['build-dev']);
+    gulp.watch(configuration.build.source + '/css/**/*.css', ['build-dev']);
+    gulp.watch(configuration.build.source + '/js/**/*.js', ['build-dev']);
 });
 
 //
@@ -127,11 +118,11 @@ gulp.task('browser-sync', function () {
 
 gulp.task('test-pages', function () {
     connect.server({
-        root: configuration.destination,
+        root: configuration.build.destination,
         port: 8888
     });
 
-    var paths = globby.sync([configuration.destination + '/**/*.html']);
+    var paths = globby.sync([configuration.build.destination + '/**/*.html']);
 
     var pageUrls = [];
     paths.forEach(function (path) {
