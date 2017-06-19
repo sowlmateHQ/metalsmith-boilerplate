@@ -8,10 +8,17 @@ var layouts = require('metalsmith-layouts');
 var sitemap = require('metalsmith-sitemap');
 var pageTitles = require('metalsmith-page-titles');
 var htmlMinifier = require("metalsmith-html-minifier");
+var redirect = require('metalsmith-redirect');
 var drafts = require('metalsmith-drafts');
+var collections = require('metalsmith-collections');
+var limitCollections = require('metalsmith-collections-limit');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
+
+//
+// Handlebars helper
+//
 
 handlebars.registerHelper('timestamp', function () {
     return moment().format("X");
@@ -27,6 +34,10 @@ handlebars.registerHelper('dateGMT', function (context) {
     return context.toGMTString();
 });
 
+//
+// Build plan
+//
+
 module.exports = Metalsmith(__dirname)
     .source(config.build.source)
     .destination(config.build.destination)
@@ -39,6 +50,10 @@ module.exports = Metalsmith(__dirname)
     .use(pageTitles())
     // https://github.com/radiovisual/metalsmith-rootpath
     .use(rootPath())
+    // https://github.com/segmentio/metalsmith-collections
+    .use(collections({}))
+    // https://github.com/yanneves/metalsmith-collections-limit
+    .use(limitCollections({}))
     // https://github.com/segmentio/metalsmith-permalinks
     .use(permalinks({
         relative: false,
@@ -52,6 +67,8 @@ module.exports = Metalsmith(__dirname)
     }))
     // https://github.com/segmentio/metalsmith-drafts
     .use(drafts())
+    // https://github.com/aymericbeaumet/metalsmith-redirect
+    .use(redirect(config.seo.redirect))
     // https://github.com/whymarrh/metalsmith-html-minifier
     .use(htmlMinifier())
     // https://github.com/ExtraHop/metalsmith-sitemap

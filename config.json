@@ -9,6 +9,9 @@
     },
     "google_tag_manager_id": "GTM-XXXXXXX"
   },
+  "seo": {
+    "redirect": {}
+  },
   "build": {
     "source": "./src",
     "destination": "./dist"
