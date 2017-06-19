@@ -106,9 +106,7 @@ gulp.task('browser-sync', function () {
         }
     });
 
-    gulp.watch('./layouts/**/*.html', ['build-dev']);
-    gulp.watch('./partials/**/*.html', ['build-dev']);
-    gulp.watch('./src/**/*.html', ['build-dev']);
+    gulp.watch(configuration.develop.watch, ['build-dev']);
 });
 
 

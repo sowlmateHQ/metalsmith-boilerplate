@@ -42,5 +42,15 @@
       "http://www.sowlmate.de",
       "https://www.googletagmanager.com"
     ]
+  },
+  "develop": {
+    "watch": [
+      "./layouts/**/*.html",
+      "./partials/**/*.html",
+      "./src/**/*.html",
+      "./public/_scss/**/*.scss",
+      "./public/css/**/*.css",
+      "./public/js/**/*.js"
+    ]
   }
 }
