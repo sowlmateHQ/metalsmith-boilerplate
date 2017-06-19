@@ -1,30 +1,41 @@
 'use strict';
 
-var layouts = require('metalsmith-layouts');
 var Metalsmith = require('metalsmith');
 var rootPath = require('metalsmith-rootpath');
+var permalinks = require('metalsmith-permalinks');
+var layouts = require('metalsmith-layouts');
+var sitemap = require('metalsmith-sitemap');
 var handlebars = require('handlebars');
+var moment = require('moment');
 var config = require('./config.json');
 
-/**
- *  Export Metalsmith build to use with Gulp.
- *
- *  Metalsmith will look for a folder named `src` in `__dirname`.
- *  Use the source() method if you want to point Metalsmith to a different `src` folder/location.
- *  Then we set the destination folder using the destination() method.
- *
- *  Note that we are not calling the `Metalsmith.build()` here. We will invoke the build in gulpfile.js.
- */
+handlebars.registerHelper('timestamp', function () {
+    return moment().format("X");
+});
+handlebars.registerHelper('dateFormat', function (context) {
+    return moment(context).format("LL");
+});
+handlebars.registerHelper('dateYear', function () {
+    return moment().format("YYYY");
+});
+handlebars.registerHelper('dateGMT', function (context) {
+    context = context === 'new' ? new Date() : context;
+    return context.toGMTString();
+});
+
 module.exports = Metalsmith(__dirname)
-    // Where shall we build?
+    .source(config.source)
     .destination(config.destination)
-    // Process config
+    .clean(true)
     .metadata(config.metadata)
-    // Expose `rootPath` to each file
     .use(rootPath())
-    // Process handlebars templates
+    .use(permalinks({
+        relative: false,
+        pattern: ':slug'
+    }))
     .use(layouts({
         engine: 'handlebars',
         directory: 'layouts',
         partials: 'partials'
-    }));
+    }))
+    .use(sitemap(config.metadata.site.url));
