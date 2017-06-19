@@ -12,6 +12,7 @@ var redirect = require('metalsmith-redirect');
 var drafts = require('metalsmith-drafts');
 var collections = require('metalsmith-collections');
 var limitCollections = require('metalsmith-collections-limit');
+var robots = require('metalsmith-robots');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -71,6 +72,10 @@ module.exports = Metalsmith(__dirname)
     .use(redirect(config.seo.redirect))
     // https://github.com/whymarrh/metalsmith-html-minifier
     .use(htmlMinifier())
+    // https://github.com/superwolff/metalsmith-robots
+    .use(robots({
+        sitemap: config.seo.sitemap
+    }))
     // https://github.com/ExtraHop/metalsmith-sitemap
     .use(sitemap({
         hostname: config.metadata.site.url
