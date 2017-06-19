@@ -157,7 +157,7 @@ gulp.task('check-pages', ['build'], function () {
 // Should be used after website was updated to invoke a fresh search engine crawl process
 //
 
-gulp.task('seo', function (cb) {
+gulp.task('ping-sitemap', function (cb) {
     request('http://www.google.com/webmasters/tools/ping?sitemap=' + configuration.seo.sitemap);
     request('http://www.bing.com/webmaster/ping.aspx?siteMap=' + configuration.seo.sitemap);
     cb();

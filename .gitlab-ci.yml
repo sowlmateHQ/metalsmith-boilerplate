@@ -17,9 +17,13 @@ build:
     - npm install gulp -g --loglevel warn
     - npm install --loglevel warn
     - gulp clean
-    - gulp build-deps
     - gulp build
-    - gulp check-pages
+    # - gulp check-pages
+  artifacts:
+    name: $CI_COMMIT_REF_NAME
+    paths:
+    - dist/
+    expire_in: 4 weeks
   cache:
     key: $CI_COMMIT_REF_NAME
     untracked: true
