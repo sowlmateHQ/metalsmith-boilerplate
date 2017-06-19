@@ -16,40 +16,31 @@
     "destination": "./dist",
     "cache_busting": [
       "bin/css.min.css",
-      "bin/vendor.min.js"
+      "bin/script.min.js"
     ],
     "assets": {
       "source": "./public",
-      "destination": "./"
+      "destination": "./",
+      "bin": "./public/bin",
+      "css": {
+        "globs": [
+          "./public/_scss/**/*.scss",
+          "./public/css/**/*.css"
+        ],
+        "minified": "css.min.css"
+      },
+      "js": {
+        "globs": [
+          "./public/js/*.js"
+        ],
+        "minified": "script.min.js"
+      }
     }
   },
   "test": {
     "linksToIgnore": [
-      "http://www.sowlmate.de"
+      "http://www.sowlmate.de",
+      "https://www.googletagmanager.com"
     ]
-  },
-  "assets": {
-    "globs": {
-      "css": [
-        "./src/_scss/**/*.scss",
-        "./src/css/**/*.css"
-      ],
-      "vendor": [
-        "./src/vendor/**/*.js"
-      ],
-      "scripts": [
-        "./src/js/*.js"
-      ]
-    },
-    "bin": {
-      "css": "./public/bin",
-      "js": "./public/bin"
-    },
-    "minified": {
-      "css": "css.min.css",
-      "js": "js.min.js",
-      "vendor": "vendor.min.js",
-      "bundle": "bundle.min.js"
-    }
   }
 }

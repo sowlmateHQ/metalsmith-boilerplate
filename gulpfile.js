@@ -14,15 +14,23 @@ var sourcemaps = require('gulp-sourcemaps');
 var checkPages = require('check-pages');
 var connect = require('gulp-connect');
 var del = require('del');
-
 var metalsmith = require("./metalsmith.js");
 var configuration = require("./config.json");
 
+// ---------------------------------------------------------
+// BUILD
+// ---------------------------------------------------------
+
 //
-// Default task
+// Cleanup the build directory
+// Build directory is also cleaned up by Metalsmith on each build run
 //
 
-gulp.task('default', ['build-dev', 'browser-sync']);
+gulp.task('clean', function () {
+    return del([
+        configuration.build.destination + '/**/*'
+    ]);
+});
 
 //
 // Build
@@ -33,6 +41,47 @@ gulp.task('build', ['css', 'js'], function () {
         if (err) throw err;
     });
 });
+
+//
+// Process SASS/CSS files
+//
+
+gulp.task('css', function () {
+    return gulp.src(configuration.build.assets.css.globs)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(concat(configuration.build.assets.css.minified))
+        .pipe(gulp.dest(configuration.build.assets.bin));
+});
+
+//
+// Process all JS files
+//
+
+gulp.task('js', function () {
+    return gulp.src(configuration.build.assets.js.globs)
+        .pipe(uglify())
+        .pipe(concat(configuration.build.assets.js.minified))
+        .pipe(gulp.dest(configuration.build.assets.bin));
+});
+
+//
+// Optimize images
+//
+
+gulp.task('images', function () {
+
+});
+
+// ---------------------------------------------------------
+// DEVELOPMENT
+// ---------------------------------------------------------
+
+//
+// Default task
+//
+
+gulp.task('default', ['build-dev', 'browser-sync']);
 
 //
 // Build with live reload
@@ -46,55 +95,8 @@ gulp.task('build-dev', ['css', 'js'], function () {
 });
 
 //
-// Clean build directory
-//
-
-gulp.task('clean', function () {
-    return del([
-        configuration.build.destination + '/**/*'
-    ]);
-});
-
-//
-// Process SASS/CSS files
-//
-
-gulp.task('css', function () {
-    return gulp.src(configuration.assets.globs.css)
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(concat(configuration.assets.minified.css))
-        .pipe(gulp.dest(configuration.assets.bin.css));
-});
-
-//
-// Process all JS files (build dependencies, scripts)
-//
-
-gulp.task('js', function () {
-    // not implemented right now
-});
-
-//
-// Process build dependencies
-//
-
-gulp.task('build-deps', function () {
-    return gulp.src(configuration.assets.globs.vendor)
-        .pipe(concat(configuration.assets.minified.vendor))
-        .pipe(gulp.dest(configuration.assets.bin.js));
-});
-
-//
-// Optimize images
-//
-
-gulp.task('images', function () {
-
-});
-
-//
-// Browsersync
+// Time-saving synchronised browser testing
+// https://browsersync.io/docs/gulp
 //
 
 gulp.task('browser-sync', function () {
@@ -106,18 +108,20 @@ gulp.task('browser-sync', function () {
 
     gulp.watch('./layouts/**/*.html', ['build-dev']);
     gulp.watch('./partials/**/*.html', ['build-dev']);
-    gulp.watch(configuration.build.source + '/**/*.html', ['build-dev']);
-    gulp.watch(configuration.build.source + '/_scss/**/*.scss', ['build-dev']);
-    gulp.watch(configuration.build.source + '/css/**/*.css', ['build-dev']);
-    gulp.watch(configuration.build.source + '/js/**/*.js', ['build-dev']);
+    gulp.watch('./src/**/*.html', ['build-dev']);
 });
+
+
+// ---------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------
 
 //
 // Checks various aspects of a web page for correctness
 // https://github.com/DavidAnson/check-pages
 //
 
-gulp.task('check-pages', function () {
+gulp.task('check-pages', ['build'], function () {
     connect.server({
         root: configuration.build.destination,
         port: 8888
@@ -136,7 +140,6 @@ gulp.task('check-pages', function () {
         pageUrls: pageUrls,
         checkLinks: true,
         preferSecure: true,
-        checkXhtml: true,
         maxResponseTime: 1000,
         linksToIgnore: configuration.test.linksToIgnore
     };
@@ -149,4 +152,36 @@ gulp.task('check-pages', function () {
     };
 
     checkPages(console, options, callback);
+});
+
+//
+// Pings Google and Bing webmaster tools with current sitemap as argument
+// Should be used after website was updated to invoke a fresh search engine crawl process
+//
+
+gulp.task('seo', function (cb) {
+    request('http://www.google.com/webmasters/tools/ping?sitemap=' + configuration.seo.sitemap);
+    request('http://www.bing.com/webmaster/ping.aspx?siteMap=' + configuration.seo.sitemap);
+    cb();
+});
+
+//
+// Google Pagespeed
+// Check "mobile" and "desktop" page speed of production site
+//
+
+gulp.task('pagespeed-mobile', function () {
+    return psi.output(configuration.metadata.site.url, {
+        nokey: 'true',
+        strategy: 'mobile',
+        threshold: 40
+    })
+});
+
+gulp.task('pagespeed-desktop', function () {
+    return psi.output(configuration.metadata.site.url, {
+        nokey: 'true',
+        strategy: 'desktop',
+        threshold: 40
+    })
 });
