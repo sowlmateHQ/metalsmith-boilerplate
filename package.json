@@ -43,6 +43,7 @@
     "metalsmith": "^2.3.0",
     "metalsmith-browser-sync": "^1.1.1",
     "metalsmith-layouts": "^1.8.0",
+    "metalsmith-page-titles": "^1.0.2",
     "metalsmith-permalinks": "^0.5.0",
     "metalsmith-rootpath": "^1.0.4",
     "metalsmith-sitemap": "^1.2.0",

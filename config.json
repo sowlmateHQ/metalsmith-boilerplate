@@ -1,5 +1,18 @@
 {
-  "metadata": {},
+  "metadata": {
+    "site": {
+      "title": "Metalsmith Boilerplate",
+      "description": "",
+      "keywords": "",
+      "author": "https://sowlmate.de",
+      "url": "https://example.foo",
+      "sitemap": "https://example.foo/sitemap.xml"
+    },
+    "google_tag_manager_id": "GTM-XXXXXXX"
+  },
+  "build": {
+
+  },
   "source": "./src",
   "destination": "./dist",
   "assets": {

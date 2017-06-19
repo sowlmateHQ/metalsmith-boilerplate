@@ -5,6 +5,7 @@ var rootPath = require('metalsmith-rootpath');
 var permalinks = require('metalsmith-permalinks');
 var layouts = require('metalsmith-layouts');
 var sitemap = require('metalsmith-sitemap');
+var pageTitles = require('metalsmith-page-titles');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -28,6 +29,7 @@ module.exports = Metalsmith(__dirname)
     .destination(config.destination)
     .clean(true)
     .metadata(config.metadata)
+    .use(pageTitles())
     .use(rootPath())
     .use(permalinks({
         relative: false,
