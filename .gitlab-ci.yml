@@ -18,6 +18,7 @@ build:
     - npm install --loglevel warn
     - gulp clean
     - gulp build
+    # - gulp images
     # - gulp check-pages
   artifacts:
     name: $CI_COMMIT_REF_NAME

@@ -14,6 +14,10 @@ var sourcemaps = require('gulp-sourcemaps');
 var checkPages = require('check-pages');
 var connect = require('gulp-connect');
 var del = require('del');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+var jpegtran = require('imagemin-jpegtran');
+var gifsicle = require('imagemin-gifsicle');
 var metalsmith = require("./metalsmith.js");
 var configuration = require("./config.json");
 
@@ -67,10 +71,22 @@ gulp.task('js', function () {
 
 //
 // Optimize images
+// Images are optimized directly in destination folder
 //
 
 gulp.task('images', function () {
-
+    return gulp.src([
+        configuration.build.destination + '/**/*.jpg',
+        configuration.build.destination + '/**/*.jpeg',
+        configuration.build.destination + '/**/*.gif',
+        configuration.build.destination + '/**/*.png'
+    ])
+        .pipe(imagemin({
+            progressive: false,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant(), jpegtran(), gifsicle()]
+        }))
+        .pipe(gulp.dest(configuration.build.destination));
 });
 
 // ---------------------------------------------------------
