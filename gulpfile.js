@@ -135,7 +135,7 @@ gulp.task('browser-sync', function () {
 // https://github.com/DavidAnson/check-pages
 //
 
-gulp.task('check-pages', ['build'], function () {
+gulp.task('check-pages', function () {
     connect.server({
         root: configuration.build.destination,
         port: 8888
