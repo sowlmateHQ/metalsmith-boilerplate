@@ -1,6 +1,7 @@
 'use strict';
 
 var Metalsmith = require('metalsmith');
+var env = require('metalsmith-env');
 var rootPath = require('metalsmith-rootpath');
 var permalinks = require('metalsmith-permalinks');
 var layouts = require('metalsmith-layouts');
@@ -32,6 +33,8 @@ module.exports = Metalsmith(__dirname)
     .clean(true)
     // https://github.com/segmentio/metalsmith-metadata
     .metadata(config.metadata)
+    // https://github.com/kalamuna/metalsmith-env
+    .use(env())
     // https://github.com/hellatan/metalsmith-page-titles
     .use(pageTitles())
     // https://github.com/radiovisual/metalsmith-rootpath

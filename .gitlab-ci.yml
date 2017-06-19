@@ -19,7 +19,7 @@ build:
     - gulp clean
     - gulp build-deps
     - gulp build
-    - gulp test-pages
+    - gulp check-pages
   cache:
     key: $CI_COMMIT_REF_NAME
     untracked: true

@@ -113,10 +113,11 @@ gulp.task('browser-sync', function () {
 });
 
 //
-// Testing website structure
+// Checks various aspects of a web page for correctness
+// https://github.com/DavidAnson/check-pages
 //
 
-gulp.task('test-pages', function () {
+gulp.task('check-pages', function () {
     connect.server({
         root: configuration.build.destination,
         port: 8888
@@ -130,14 +131,14 @@ gulp.task('test-pages', function () {
     });
 
     var options = {
-        pageUrls: pageUrls,
-        linksToIgnore: [
-            'http://www.sowlmate.de/'
-        ],
-        checkLinks: true,
-        //checkXhtml: true,
         terse: true,
-        summary: true
+        summary: true,
+        pageUrls: pageUrls,
+        checkLinks: true,
+        preferSecure: true,
+        checkXhtml: true,
+        maxResponseTime: 1000,
+        linksToIgnore: configuration.test.linksToIgnore
     };
 
     var callback = function (err, issueCount) {

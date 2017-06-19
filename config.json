@@ -13,6 +13,11 @@
     "source": "./src",
     "destination": "./dist"
   },
+  "test": {
+    "linksToIgnore": [
+      "http://www.sowlmate.de"
+    ]
+  },
   "assets": {
     "globs": {
       "css": [
