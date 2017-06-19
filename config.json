@@ -15,7 +15,8 @@
   },
   "build": {
     "source": "./src",
-    "destination": "./dist"
+    "destination": "./dist",
+    "cache_busting": []
   },
   "test": {
     "linksToIgnore": [

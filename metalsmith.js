@@ -13,6 +13,7 @@ var drafts = require('metalsmith-drafts');
 var collections = require('metalsmith-collections');
 var limitCollections = require('metalsmith-collections-limit');
 var robots = require('metalsmith-robots');
+var fingerprint = require('metalsmith-fingerprint');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -59,6 +60,10 @@ module.exports = Metalsmith(__dirname)
     .use(permalinks({
         relative: false,
         pattern: ':slug'
+    }))
+    // https://github.com/christophercliff/metalsmith-fingerprint
+    .use(fingerprint({
+        pattern: config.build.cache_busting
     }))
     // https://github.com/superwolff/metalsmith-layouts
     .use(layouts({
