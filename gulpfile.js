@@ -59,13 +59,25 @@ gulp.task('css', function () {
 });
 
 //
-// Process all JS files
+// Process project JS files
 //
 
 gulp.task('js', function () {
     return gulp.src(configuration.build.assets.js.globs)
         .pipe(uglify())
         .pipe(concat(configuration.build.assets.js.minified))
+        .pipe(gulp.dest(configuration.build.assets.bin));
+});
+
+//
+// Process vendor JS files
+// This is a separate task to decrease build time during development
+//
+
+gulp.task('deps', function () {
+    return gulp.src(configuration.build.assets.vendor.globs)
+        .pipe(uglify())
+        .pipe(concat(configuration.build.assets.vendor.minified))
         .pipe(gulp.dest(configuration.build.assets.bin));
 });
 
@@ -135,7 +147,7 @@ gulp.task('browser-sync', function () {
 // https://github.com/DavidAnson/check-pages
 //
 
-gulp.task('check-pages', ['build'], function () {
+gulp.task('check-pages', function () {
     connect.server({
         root: configuration.build.destination,
         port: 8888

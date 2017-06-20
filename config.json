@@ -16,6 +16,7 @@
     "destination": "./dist",
     "cache_busting": [
       "bin/css.min.css",
+      "bin/vendor.min.js",
       "bin/script.min.js"
     ],
     "assets": {
@@ -34,6 +35,12 @@
           "./public/js/*.js"
         ],
         "minified": "script.min.js"
+      },
+      "vendor": {
+        "globs": [
+          "./public/vendor/**/*.js"
+        ],
+        "minified": "vendor.min.js"
       }
     }
   },

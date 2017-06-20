@@ -19,6 +19,7 @@ $ brew install node
 ```
 $ npm install gulp -g
 $ npm install
+$ gulp deps
 $ gulp
 ```
 
@@ -45,6 +46,7 @@ Now you should see Browsersync running and your website should be accessible [ht
 - Delete scss files in production
 - SSL error checker gulp task
 - Update used features in check-pages task
+- Add Gulp task to build deps in an extra step (time)
 
 ```
 gulp.task('fetch-newest-analytics', function() {

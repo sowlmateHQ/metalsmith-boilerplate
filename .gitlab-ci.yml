@@ -1,5 +1,6 @@
 variables:
   DOCKER_DRIVER: overlay
+  AWS_DEFAULT_REGION: eu-central-1
   STAGING_BUCKET_NAME: site.stg-example-com
   STAGING_URL: http://stg.example.com
   PRODUCTION_BUCKET_NAME: site.example-com
@@ -40,7 +41,7 @@ build:
 #  script:
 #    - pip install awscli
 #    - aws configure set preview.cloudfront true
-#    - aws s3 sync dist/ s3://$STAGING_BUCKET_NAME/ --delete
+#    - aws s3 sync dist/ s3://$PRODUCTION_BUCKET_NAME/ --delete
 #    - aws cloudfront create-invalidation --distribution-id $PRODUCTION_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
 #  when: manual
 #  only:
@@ -54,6 +55,6 @@ build:
 #    url: $STAGING_URL
 #  script:
 #    - pip install awscli
-#    - aws s3 sync dist/ s3://$PRODUCTION_BUCKET_NAME/ --delete
+#    - aws s3 sync dist/ s3://$STAGING_BUCKET_NAME/ --delete
 #  only:
 #    - develop
