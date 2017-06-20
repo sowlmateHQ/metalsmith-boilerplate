@@ -19,6 +19,7 @@ $ brew install node
 ```
 $ npm install gulp -g
 $ npm install
+$ gulp deps
 $ gulp
 ```
 

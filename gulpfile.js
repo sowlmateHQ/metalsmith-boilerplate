@@ -59,13 +59,25 @@ gulp.task('css', function () {
 });
 
 //
-// Process all JS files
+// Process project JS files
 //
 
 gulp.task('js', function () {
     return gulp.src(configuration.build.assets.js.globs)
         .pipe(uglify())
         .pipe(concat(configuration.build.assets.js.minified))
+        .pipe(gulp.dest(configuration.build.assets.bin));
+});
+
+//
+// Process vendor JS files
+// This is a separate task to decrease build time during development
+//
+
+gulp.task('deps', function () {
+    return gulp.src(configuration.build.assets.vendor.globs)
+        .pipe(uglify())
+        .pipe(concat(configuration.build.assets.vendor.minified))
         .pipe(gulp.dest(configuration.build.assets.bin));
 });
 
