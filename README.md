@@ -4,6 +4,14 @@
 
 [tbd]
 
+```
+layout: default.html
+title: Main Page Title
+description: Main Page Description
+draft: true
+permalink: false
+```
+
 ## Develop
 
 ### Dependencies
@@ -46,7 +54,9 @@ Now you should see Browsersync running and your website should be accessible [ht
 - Delete scss files in production
 - SSL error checker gulp task
 - Update used features in check-pages task
-- Add Gulp task to build deps in an extra step (time)
+- Move arguments to config.json
+- Frontmatter in Readme
+- 
 
 ```
 gulp.task('fetch-newest-analytics', function() {

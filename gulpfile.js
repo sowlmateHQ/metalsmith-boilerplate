@@ -14,6 +14,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var checkPages = require('check-pages');
 var connect = require('gulp-connect');
 var del = require('del');
+var psi = require('psi');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var jpegtran = require('imagemin-jpegtran');
