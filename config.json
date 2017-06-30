@@ -32,7 +32,7 @@
       },
       "js": {
         "globs": [
-          "./public/js/*.js"
+          "./public/js/**/*.js"
         ],
         "minified": "script.min.js"
       },
