@@ -22,8 +22,8 @@
     "live",
     "reload"
   ],
-  "author": "Andreas Weber",
-  "license": "UNLICENSED",
+  "author": "Sowlmate",
+  "license": "MIT",
   "dependencies": {
     "browser-sync": "^2.18.8",
     "browserify": "^14.3.0",

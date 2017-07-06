@@ -3,7 +3,6 @@
 var Metalsmith = require('metalsmith');
 var env = require('metalsmith-env');
 var assets = require('metalsmith-assets');
-var rootPath = require('metalsmith-rootpath');
 var permalinks = require('metalsmith-permalinks');
 var layouts = require('metalsmith-layouts');
 var sitemap = require('metalsmith-sitemap');
@@ -89,7 +88,5 @@ module.exports = Metalsmith(__dirname)
     .use(inPlace({
         pattern: "**/*.html.handlebars"
     }))
-    // https://github.com/radiovisual/metalsmith-rootpath
-    .use(rootPath())
     // https://github.com/whymarrh/metalsmith-html-minifier
     .use(htmlMinifier());
