@@ -15,6 +15,7 @@ var collections = require('metalsmith-collections');
 var limitCollections = require('metalsmith-collections-limit');
 var robots = require('metalsmith-robots');
 var fingerprint = require('metalsmith-fingerprint-ignore');
+var inPlace = require('metalsmith-in-place');
 var handlebars = require('handlebars');
 var moment = require('moment');
 var config = require('./config.json');
@@ -53,8 +54,6 @@ module.exports = Metalsmith(__dirname)
     .use(env())
     // https://github.com/hellatan/metalsmith-page-titles
     .use(pageTitles())
-    // https://github.com/radiovisual/metalsmith-rootpath
-    .use(rootPath())
     // https://github.com/segmentio/metalsmith-collections
     .use(collections({}))
     // https://github.com/yanneves/metalsmith-collections-limit
@@ -78,8 +77,6 @@ module.exports = Metalsmith(__dirname)
     .use(drafts())
     // https://github.com/aymericbeaumet/metalsmith-redirect
     .use(redirect(config.seo.redirect))
-    // https://github.com/whymarrh/metalsmith-html-minifier
-    .use(htmlMinifier())
     // https://github.com/superwolff/metalsmith-robots
     .use(robots({
         sitemap: config.seo.sitemap
@@ -87,4 +84,12 @@ module.exports = Metalsmith(__dirname)
     // https://github.com/ExtraHop/metalsmith-sitemap
     .use(sitemap({
         hostname: config.metadata.site.url
-    }));
+    }))
+    // https://github.com/superwolff/metalsmith-in-place
+    .use(inPlace({
+        pattern: "**/*.html.handlebars"
+    }))
+    // https://github.com/radiovisual/metalsmith-rootpath
+    .use(rootPath())
+    // https://github.com/whymarrh/metalsmith-html-minifier
+    .use(htmlMinifier());

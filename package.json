@@ -27,6 +27,7 @@
   "dependencies": {
     "browser-sync": "^2.18.8",
     "browserify": "^14.3.0",
+    "check-pages": "^0.10.0",
     "del": "^2.2.2",
     "glob": "^7.1.1",
     "globby": "^6.1.0",
@@ -44,6 +45,7 @@
     "imagemin-gifsicle": "^5.1.0",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-pngquant": "^5.0.1",
+    "jstransformer-handlebars": "^1.0.0",
     "metalsmith": "^2.3.0",
     "metalsmith-assets": "^0.1.0",
     "metalsmith-browser-sync": "^1.1.1",
@@ -53,6 +55,7 @@
     "metalsmith-env": "^2.0.0",
     "metalsmith-fingerprint-ignore": "^1.1.2",
     "metalsmith-html-minifier": "^2.2.0",
+    "metalsmith-in-place": "^2.0.1",
     "metalsmith-layouts": "^1.8.0",
     "metalsmith-page-titles": "^1.0.2",
     "metalsmith-permalinks": "^0.5.0",
@@ -67,8 +70,5 @@
     "through2": "^2.0.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "devDependencies": {
-    "check-pages": "^0.10.0"
   }
 }

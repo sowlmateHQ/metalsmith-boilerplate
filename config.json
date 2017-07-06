@@ -55,6 +55,7 @@
       "./layouts/**/*.html",
       "./partials/**/*.html",
       "./src/**/*.html",
+      "./src/**/*.html.handlebars",
       "./public/_scss/**/*.scss",
       "./public/css/**/*.css",
       "./public/js/**/*.js"
