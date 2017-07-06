@@ -61,7 +61,6 @@
     "metalsmith-permalinks": "^0.5.0",
     "metalsmith-redirect": "^2.1.0",
     "metalsmith-robots": "^1.0.1",
-    "metalsmith-rootpath": "^1.0.4",
     "metalsmith-sitemap": "^1.2.0",
     "moment": "^2.18.1",
     "psi": "^3.0.0",
