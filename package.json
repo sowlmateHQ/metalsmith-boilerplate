@@ -19,8 +19,7 @@
     "sass",
     "minify",
     "browersync",
-    "live",
-    "reload"
+    "live reload"
   ],
   "author": "Sowlmate",
   "license": "MIT",
