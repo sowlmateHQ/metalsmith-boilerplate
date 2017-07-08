@@ -41,6 +41,10 @@
           "./public/vendor/**/*.js"
         ],
         "minified": "vendor.min.js"
+      },
+      "remote": {
+        "path": "./public/vendor/remote",
+        "files": []
       }
     }
   },

@@ -15,6 +15,7 @@ var checkPages = require('check-pages');
 var connect = require('gulp-connect');
 var del = require('del');
 var psi = require('psi');
+var download = require("gulp-download-stream");
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var jpegtran = require('imagemin-jpegtran');
@@ -75,11 +76,20 @@ gulp.task('js', function () {
 // This is a separate task to decrease build time during development
 //
 
-gulp.task('deps', function () {
+gulp.task('deps', ['deps-remote'], function () {
     return gulp.src(configuration.build.assets.vendor.globs)
         .pipe(uglify())
         .pipe(concat(configuration.build.assets.vendor.minified))
         .pipe(gulp.dest(configuration.build.assets.bin));
+});
+
+//
+// Download external vendor files
+//
+
+gulp.task('deps-remote', function () {
+    download(configuration.build.assets.remote.files)
+        .pipe(gulp.dest(configuration.build.assets.remote.path));
 });
 
 //
