@@ -57,6 +57,10 @@ module.exports = Metalsmith(__dirname)
     .use(collections({}))
     // https://github.com/yanneves/metalsmith-collections-limit
     .use(limitCollections({}))
+    // https://github.com/superwolff/metalsmith-in-place
+    .use(inPlace({
+        pattern: "**/*.html.handlebars"
+    }))
     // https://github.com/segmentio/metalsmith-permalinks
     .use(permalinks({
         relative: false,
@@ -83,10 +87,6 @@ module.exports = Metalsmith(__dirname)
     // https://github.com/ExtraHop/metalsmith-sitemap
     .use(sitemap({
         hostname: config.metadata.site.url
-    }))
-    // https://github.com/superwolff/metalsmith-in-place
-    .use(inPlace({
-        pattern: "**/*.html.handlebars"
     }))
     // https://github.com/whymarrh/metalsmith-html-minifier
     .use(htmlMinifier());
